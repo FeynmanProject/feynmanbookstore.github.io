@@ -116,21 +116,24 @@ export default function OrderPage() {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({
-          name: formData.name,
-          email: formData.email,
-          address: formData.address,
-          bukuA: (formData.quantities.bookA || 0).toString(),
-          bukuB: (formData.quantities.bookB || 0).toString(),
-          bukuC: (formData.quantities.bookC || 0).toString(),
-          bukuD: (formData.quantities.bookD || 0).toString(),
-          bukuE: (formData.quantities.bookE || 0).toString(),
-          bukuF: (formData.quantities.bookF || 0).toString(),
-          bukuG: (formData.quantities.bookG || 0).toString(),
-          totalPrice: calculateTotal().toString(),
-          proofFile: base64File,
-          fileName: formData.proofFile!.name
+          data: JSON.stringify({
+            nama: formData.name,
+            email: formData.email,
+            alamat: formData.address,
+            bukuA: formData.quantities.bukuA || 0,
+            bukuB: formData.quantities.bukuB || 0,
+            bukuC: formData.quantities.bukuC || 0,
+            bukuD: formData.quantities.bukuD || 0,
+            bukuE: formData.quantities.bukuE || 0,
+            bukuF: formData.quantities.bukuF || 0,
+            bukuG: formData.quantities.bukuG || 0,
+            totalHarga: calculateTotal(),
+            file: base64File,
+            fileName: formData.proofFile!.name
+          })
         })
       });
+
       
       if (response.ok) {
         setSubmitStatus('success');
