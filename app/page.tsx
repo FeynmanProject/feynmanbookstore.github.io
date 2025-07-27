@@ -13,7 +13,7 @@ export default function Home() {
           </span>
         </h1>
         <p className="text-xl text-gray-300 mb-12 leading-relaxed">
-          Access our premium book collection through our dedicated ordering system
+          Akses koleksi buku diktat kami melalui sistem pemesanan khusus
         </p>
         
         <div className="flex flex-col sm:flex-row gap-6 justify-center">
@@ -22,7 +22,7 @@ export default function Home() {
             className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all font-semibold text-lg shadow-lg hover:shadow-purple-500/25 whitespace-nowrap"
           >
             <i className="ri-shopping-cart-line mr-2"></i>
-            Buy Now
+            Beli Sekarang
           </Link>
           
           <a
@@ -32,7 +32,7 @@ export default function Home() {
             className="inline-flex items-center px-8 py-4 bg-gray-800 border border-gray-700 rounded-lg hover:bg-gray-700 hover:border-gray-600 transition-all font-semibold text-lg whitespace-nowrap"
           >
             <i className="ri-external-link-line mr-2"></i>
-            Visit Main Site
+            Kunjungi Situs Utama
           </a>
         </div>
       </div>
