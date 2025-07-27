@@ -5,13 +5,13 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 const books = [
-  { id: 'bookA', name: 'Book A', price: 29.99 },
-  { id: 'bookB', name: 'Book B', price: 34.99 },
-  { id: 'bookC', name: 'Book C', price: 39.99 },
-  { id: 'bookD', name: 'Book D', price: 24.99 },
-  { id: 'bookE', name: 'Book E', price: 44.99 },
-  { id: 'bookF', name: 'Book F', price: 32.99 },
-  { id: 'bookG', name: 'Book G', price: 37.99 }
+  { id: 'bukuA', name: 'Kalkulus 1', price: 50000 },
+  { id: 'bukuB', name: 'Kalkulus 3', price: 50000 },
+  { id: 'bukuC', name: 'ALE', price: 50000 },
+  { id: 'bukuD', name: 'PDB', price: 50000 },
+  { id: 'bukuE', name: 'LDH', price: 50000 },
+  { id: 'bukuF', name: 'ALPROG', price: 50000 },
+  { id: 'bukuG', name: 'Matdas', price: 50000 }
 ];
 
 export default function OrderPage() {
@@ -70,11 +70,11 @@ export default function OrderPage() {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     
-    if (!formData.name.trim()) newErrors.name = 'Name is required';
-    if (!formData.email.trim()) newErrors.email = 'Email is required';
-    if (!formData.address.trim()) newErrors.address = 'Address is required';
-    if (getTotalBooks() === 0) newErrors.books = 'At least one book must be ordered';
-    if (!formData.proofFile) newErrors.proof = 'Proof of payment is required';
+    if (!formData.name.trim()) newErrors.name = 'Nama Diperlukan';
+    if (!formData.email.trim()) newErrors.email = 'Email Diperlukan';
+    if (!formData.address.trim()) newErrors.address = 'Alamat Diperlukan';
+    if (getTotalBooks() === 0) newErrors.books = 'Setidaknya Ada 1 Pembelian';
+    if (!formData.proofFile) newErrors.proof = 'Bukti Pembayaran';
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -162,11 +162,11 @@ export default function OrderPage() {
           
           <h1 className="text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
-              Order Your Books
+              Pesan Buku Diktat Anda
             </span>
           </h1>
           <p className="text-xl text-gray-300">
-            Complete your order for the Feynman Project book collection
+            Selesaikan pemesanan untuk koleksi buku Feynman Project
           </p>
         </div>
 
@@ -174,43 +174,43 @@ export default function OrderPage() {
           {/* Personal Information */}
           <section className="bg-gray-900/50 rounded-2xl p-8 backdrop-blur-sm">
             <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
-              Personal Information
+              Informasi Pembeli
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium mb-2">Full Name</label>
+                <label className="block text-sm font-medium mb-2">Nama Lengkap</label>
                 <input
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                   className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
-                  placeholder="Enter your full name"
+                  placeholder="Masukkan Nama Lengkap Anda"
                 />
                 {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
               </div>
               
               <div>
-                <label className="block text-sm font-medium mb-2">Email Address</label>
+                <label className="block text-sm font-medium mb-2">Email Anda</label>
                 <input
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                   className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
-                  placeholder="Enter your email address"
+                  placeholder="Masukkan alamat email anda"
                 />
                 {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
               </div>
             </div>
             
             <div className="mt-6">
-              <label className="block text-sm font-medium mb-2">Shipping Address</label>
+              <label className="block text-sm font-medium mb-2">Alamat Pengantaran</label>
               <textarea
                 value={formData.address}
                 onChange={(e) => setFormData(prev => ({ ...prev, address: e.target.value }))}
                 className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
                 rows={3}
-                placeholder="Enter your complete shipping address"
+                placeholder="Masukkan Alamat Pengantaran Anda"
                 maxLength={500}
               />
               {errors.address && <p className="text-red-400 text-sm mt-1">{errors.address}</p>}
@@ -220,7 +220,7 @@ export default function OrderPage() {
           {/* Book Selection */}
           <section className="bg-gray-900/50 rounded-2xl p-8 backdrop-blur-sm">
             <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
-              Select Books
+              Pemilihan Buku Diktat
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -302,12 +302,12 @@ export default function OrderPage() {
           {/* Proof of Payment */}
           <section className="bg-gray-900/50 rounded-2xl p-8 backdrop-blur-sm">
             <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
-              Proof of Payment
+              Pembuktian Pembayaran
             </h2>
             
             <div className="border-2 border-dashed border-gray-700 rounded-xl p-8 text-center hover:border-purple-500 transition-colors">
               <i className="ri-upload-cloud-line text-4xl text-gray-400 mb-4"></i>
-              <p className="text-gray-300 mb-4">Upload your payment receipt (Image or PDF)</p>
+              <p className="text-gray-300 mb-4">Upload bukti pembayaran anda (Gambar or PDF)</p>
               
               <input
                 type="file"
@@ -322,7 +322,7 @@ export default function OrderPage() {
                 className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all cursor-pointer whitespace-nowrap"
               >
                 <i className="ri-folder-open-line mr-2"></i>
-                Choose File
+                Pilih File
               </label>
               
               {formData.proofFile && (
@@ -351,7 +351,7 @@ export default function OrderPage() {
               ) : (
                 <span className="flex items-center justify-center">
                   <i className="ri-shopping-cart-line mr-2"></i>
-                  Submit Order
+                  Submit Pemesanan Anda
                 </span>
               )}
             </button>
@@ -361,8 +361,8 @@ export default function OrderPage() {
           {submitStatus === 'success' && (
             <div className="text-center p-6 bg-green-900/20 border border-green-500/20 rounded-xl">
               <i className="ri-check-line text-4xl text-green-400 mb-2"></i>
-              <p className="text-green-400 font-semibold">Order submitted successfully!</p>
-              <p className="text-gray-300 mt-2">You will receive a confirmation email shortly.</p>
+              <p className="text-green-400 font-semibold">Order anda sudah diterima!</p>
+              <p className="text-gray-300 mt-2">Anda akan menerima Email dari kami secepatnya.</p>
             </div>
           )}
           
