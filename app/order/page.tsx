@@ -14,6 +14,10 @@ const books = [
   { id: 'bukuG', name: 'Matdas', price: 50000 }
 ];
 
+const formatRupiah = (amount: number): string => {
+  return 'Rp' + amount.toLocaleString('id-ID');
+};
+
 export default function OrderPage() {
   const [formData, setFormData] = useState({
     name: '',
@@ -228,7 +232,7 @@ export default function OrderPage() {
                 <div key={book.id} className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg font-semibold">{book.name}</h3>
-                    <span className="text-purple-400 font-bold">${book.price}</span>
+                    <span className="text-purple-400 font-bold">{formatRupiah(book.price)}</span>
                   </div>
                   
                   <div className="flex items-center space-x-3">
@@ -259,7 +263,7 @@ export default function OrderPage() {
                   
                   {formData.quantities[book.id] > 0 && (
                     <div className="mt-3 text-sm text-gray-300">
-                      Subtotal: ${(book.price * formData.quantities[book.id]).toFixed(2)}
+                      Subtotal: {formatRupiah(book.price * formData.quantities[book.id])}
                     </div>
                   )}
                 </div>
@@ -284,7 +288,7 @@ export default function OrderPage() {
                   return (
                     <div key={book.id} className="flex justify-between items-center">
                       <span>{book.name} × {quantity}</span>
-                      <span className="font-semibold">${(book.price * quantity).toFixed(2)}</span>
+                      <span className="font-semibold">{formatRupiah(book.price * quantity)}</span>
                     </div>
                   );
                 })}
@@ -292,7 +296,7 @@ export default function OrderPage() {
                 <div className="border-t border-gray-700 pt-3 mt-4">
                   <div className="flex justify-between items-center text-xl font-bold">
                     <span>Total</span>
-                    <span className="text-purple-400">${calculateTotal().toFixed(2)}</span>
+                    <span className="text-purple-400">{formatRupiah(calculateTotal())}</span>
                   </div>
                 </div>
               </div>
