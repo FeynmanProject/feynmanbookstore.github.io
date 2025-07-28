@@ -1,3 +1,5 @@
+// app/api/submit-order/route.ts
+
 import { NextRequest } from 'next/server';
 
 export async function POST(req: NextRequest) {
@@ -9,14 +11,18 @@ export async function POST(req: NextRequest) {
     const response = await fetch(scriptUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
+      body: JSON.stringify(body),
     });
 
-    const text = await response.text();
-    return new Response(text, { status: 200 });
-
+    const result = await response.text();
+    return new Response(result, { status: 200 });
   } catch (error) {
     console.error("Proxy error:", error);
     return new Response("Proxy failed", { status: 500 });
   }
+}
+
+// Optional but good to prevent 405
+export async function GET() {
+  return new Response("Method Not Allowed", { status: 405 });
 }
