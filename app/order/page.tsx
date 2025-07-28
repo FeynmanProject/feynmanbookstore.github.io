@@ -135,9 +135,10 @@ const params = new URLSearchParams({
 });
 
 const response = await fetch(
-  'https://script.google.com/macros/s/AKfycbyQR4SAOM-GGQYjcjJ7mfahvsrBQeHH9VfMEfGAI07gLR6zLpgRez31QM9hwVyvd0M/exec?' + params.toString(),
+  '/api/submit-order?' + params.toString(),
   { method: 'GET' }
 );
+
 
 
       
