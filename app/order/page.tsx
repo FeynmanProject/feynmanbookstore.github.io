@@ -220,12 +220,11 @@ const response = await fetch('/api/submit-order', {
             <div className="mt-6">
               <label className="block text-sm font-medium mb-2">Nomor WhatsApp</label>
               <textarea
+                type="text"
                 value={formData.address}
                 onChange={(e) => setFormData(prev => ({ ...prev, address: e.target.value }))}
                 className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
-                rows={3}
                 placeholder="Masukkan Nomor WhatsApp Anda"
-                maxLength={500}
               />
               {errors.address && <p className="text-red-400 text-sm mt-1">{errors.address}</p>}
             </div>
