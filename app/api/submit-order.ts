@@ -1,18 +1,12 @@
-export async function GET(req: Request) {
+export default async function handler(req: any, res: any) {
   try {
     const scriptUrl = "https://script.google.com/macros/s/AKfycbyQR4SAOM-GGQYjcjJ7mfahvsrBQeHH9VfMEfGAI07gLR6zLpgRez31QM9hwVyvd0M/exec";
-    const url = new URL(req.url || '');
-    const query = url.searchParams.toString();
-
-    const response = await fetch(`${scriptUrl}?${query}`, {
-      method: 'GET',
-    });
-
+    const query = req.url?.split('?')[1] || '';
+    const response = await fetch(`${scriptUrl}?${query}`, { method: 'GET' });
     const text = await response.text();
-    return new Response(text, { status: 200 });
-
+    res.status(200).send(text);
   } catch (error) {
     console.error('Proxy error:', error);
-    return new Response('Proxy failed', { status: 500 });
+    res.status(500).send('Proxy failed');
   }
 }
