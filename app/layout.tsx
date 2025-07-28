@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Pacifico } from "next/font/google";
 import "./globals.css";
-import Image from "next/image";
-import Link from "next/link";
 
 const pacifico = Pacifico({
   weight: "400",
@@ -24,6 +22,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Feynman Book Store",
   description: "Pembelian Buku Feynman Project",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -36,21 +37,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${pacifico.variable} antialiased`}
       >
-        <nav className="flex items-center gap-4 px-6 py-4 shadow-md bg-neutral-800 text-white">
-          <Link href="/">
-            <div className="flex items-center gap-4">
-              <Image
-                src="/logo-feynmanbookstore.png"
-                alt="Feynman Logo"
-                width={36}
-                height={36}
-              />
-              <span className="text-lg font-semibold">Feynman Bookstore</span>
-            </div>
-          </Link>
-        </nav>
-
-        <main>{children}</main>
+        {children}
       </body>
     </html>
   );
