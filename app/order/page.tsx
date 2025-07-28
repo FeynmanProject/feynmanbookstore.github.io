@@ -314,7 +314,7 @@ const response = await fetch('/api/submit-order', {
           {/* Proof of Payment */}
           <section className="bg-gray-900/50 rounded-2xl p-8 backdrop-blur-sm">
             <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
-              Silakan lakukan pembayaran ke rekening BSI atas nama Abdul Wahhab (No. Rek: 7305463242), lalu kirimkan bukti transfer sebagai konfirmasi.
+              Bukti pembayaran harus dikirim melalui transfer ke rekening Bank Syariah Indonesia (BSI) atas nama Abdul Wahhab dengan nomor rekening 7305463242.
             </h2>
             
             <div className="border-2 border-dashed border-gray-700 rounded-xl p-8 text-center hover:border-purple-500 transition-colors">
