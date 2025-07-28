@@ -27,8 +27,6 @@ export default function Home() {
           
           <a
             href="https://feynmanproject.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
             className="inline-flex items-center px-8 py-4 bg-gray-800 border border-gray-700 rounded-lg hover:bg-gray-700 hover:border-gray-600 transition-all font-semibold text-lg whitespace-nowrap"
           >
             <i className="ri-external-link-line mr-2"></i>
