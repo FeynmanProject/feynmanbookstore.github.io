@@ -36,9 +36,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${pacifico.variable} antialiased`}
       >
-        <nav className="flex items-center gap-4 px-6 py-4 shadow-md bg-black text-white">
+        <nav className="flex items-center gap-4 px-6 py-4 shadow-md bg-neutral-800 text-white">
           <Link href="/">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-4">
               <Image
                 src="/logo-feynmanbookstore.png"
                 alt="Feynman Logo"
