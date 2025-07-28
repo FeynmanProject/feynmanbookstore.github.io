@@ -180,7 +180,7 @@ const response = await fetch('/api/submit-order', {
             </span>
           </h1>
           <p className="text-xl text-gray-300">
-            Untuk Pengambilan Buku Di Wilayah Universitas Indonesia
+            Untuk Pengambilan Buku di Wilayah Universitas Indonesia
           </p>
         </div>
 
