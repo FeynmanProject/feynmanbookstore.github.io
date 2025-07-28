@@ -88,6 +88,12 @@ export default function OrderPage() {
     e.preventDefault();
     
     if (!validateForm()) return;
+
+    // 🔒 Batas ukuran file: max 150 KB
+    if (formData.proofFile && formData.proofFile.size > 150000) {
+      alert("Ukuran file terlalu besar. Maksimal 150 KB.");
+      return;
+    }
     
     setIsSubmitting(true);
     setSubmitStatus('idle');
@@ -144,6 +150,7 @@ const response = await fetch(
           quantities: {},
           proofFile: null
         });
+        setErrors({}); // bersihkan error setelah sukses
       } else {
         throw new Error('Submission failed');
       }
