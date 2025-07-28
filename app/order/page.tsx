@@ -376,7 +376,7 @@ const response = await fetch('/api/submit-order', {
             <div className="text-center p-6 bg-green-900/20 border border-green-500/20 rounded-xl">
               <i className="ri-check-line text-4xl text-green-400 mb-2"></i>
               <p className="text-green-400 font-semibold">Order anda sudah diterima!</p>
-              <p className="text-gray-300 mt-2">Anda akan menerima Email dari kami secepatnya.</p>
+              <p className="text-gray-300 mt-2">Anda akan menerima kabar di WhatsApp dan Email dari kami secepatnya.</p>
             </div>
           )}
           
