@@ -7,11 +7,11 @@ import Link from 'next/link';
 const books = [
   { id: 'bukuA', name: 'Kalkulus 1 (SEMESTER 1)', price: 50000 },
   { id: 'bukuB', name: 'Kalkulus 3 (SEMESTER 3)', price: 50000 },
-  { id: 'bukuC', name: 'ALE (SEMESTER 1)', price: 50000 },
-  { id: 'bukuD', name: 'PDB (SEMESTER 3)', price: 50000 },
-  { id: 'bukuE', name: 'LDH (SEMESTER 1)', price: 50000 },
-  { id: 'bukuF', name: 'ALPROG (SEMESTER 1)', price: 50000 },
-  { id: 'bukuG', name: 'Matdas (SEMESTER 1)', price: 50000 }
+  { id: 'bukuC', name: 'ALE (Semester 1)', price: 50000 },
+  { id: 'bukuD', name: 'PDB (Semester 3)', price: 50000 },
+  { id: 'bukuE', name: 'LDH (Semester 1)', price: 50000 },
+  { id: 'bukuF', name: 'ALPROG (Semester 1)', price: 50000 },
+  { id: 'bukuG', name: 'Matdas (Semester 1)', price: 50000 }
 ];
 
 const formatRupiah = (amount: number): string => {
