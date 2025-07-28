@@ -167,11 +167,11 @@ const response = await fetch('/api/submit-order', {
         {/* Header */}
         <div className="mb-12">
           <Link 
-            href="https://feynmanproject.vercel.app" 
+            href="https://feynmanproject.vercel.app/books/" 
             className="inline-flex items-center text-gray-400 hover:text-white transition-colors mb-8"
           >
             <i className="ri-arrow-left-line mr-2"></i>
-            Back to Home
+            Back to Book Section
           </Link>
           
           <h1 className="text-5xl font-bold mb-4">
