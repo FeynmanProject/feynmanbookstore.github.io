@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "export",
+  output: "standalone", // ✅ Ganti dari "export" ke "standalone"
   images: {
     unoptimized: true,
   },
