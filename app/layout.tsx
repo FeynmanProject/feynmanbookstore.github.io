@@ -36,7 +36,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${pacifico.variable} antialiased`}
       >
-        <nav className="flex items-center gap-4 px-6 py-4 shadow-md bg-white">
+        <nav className="flex items-center gap-4 px-6 py-4 shadow-md bg-black text-white">
           <Link href="/">
             <div className="flex items-center gap-2">
               <Image
