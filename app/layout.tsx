@@ -23,17 +23,17 @@ export const metadata: Metadata = {
   title: "Feynman Book Store",
   description: "Pembelian Buku Feynman Project",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon-v2.ico", // 👉 ganti ke /favicon-v2.ico untuk cache busting
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" suppressHydrationWarning={true}>
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${pacifico.variable} antialiased`}
       >
