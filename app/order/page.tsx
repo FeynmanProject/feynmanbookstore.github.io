@@ -180,7 +180,7 @@ const response = await fetch('/api/submit-order', {
             </span>
           </h1>
           <p className="text-xl text-gray-300">
-            Selesaikan pemesanan untuk koleksi buku Feynman Project
+            Selesaikan pemesanan buku anda (Khusus Mahasiswa Departemen Matematika Universitas Indonesia)
           </p>
         </div>
 
@@ -218,13 +218,13 @@ const response = await fetch('/api/submit-order', {
             </div>
             
             <div className="mt-6">
-              <label className="block text-sm font-medium mb-2">Alamat Pengantaran</label>
+              <label className="block text-sm font-medium mb-2">Nomor WhatsApp</label>
               <textarea
                 value={formData.address}
                 onChange={(e) => setFormData(prev => ({ ...prev, address: e.target.value }))}
                 className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
                 rows={3}
-                placeholder="Masukkan Alamat Pengantaran Anda"
+                placeholder="Masukkan Nomor WhatsApp Anda"
                 maxLength={500}
               />
               {errors.address && <p className="text-red-400 text-sm mt-1">{errors.address}</p>}
