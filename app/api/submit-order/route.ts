@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    const scriptUrl = "https://script.google.com/macros/s/AKfycbyQR4SAOM-GGQYjcjJ7mfahvsrBQeHH9VfMEfGAI07gLR6zLpgRez31QM9hwVyvd0M/exec";
+    const scriptUrl = "https://script.google.com/macros/s/AKfycbxN8n4a_gOJt5tbEMSgRQRn4s2u-tCCe9gOy7Jl7w9I897pREgdGmnJDwArne_5lV22/exec";
 
     const response = await fetch(scriptUrl, {
       method: 'POST',
