@@ -1,5 +1,7 @@
 // app/api/submit-order/route.ts
 
+export const dynamic = 'force-dynamic';
+
 import { NextRequest } from 'next/server';
 
 export async function POST(req: NextRequest) {
@@ -17,12 +19,7 @@ export async function POST(req: NextRequest) {
     const result = await response.text();
     return new Response(result, { status: 200 });
   } catch (error) {
-    console.error("Proxy error:", error);
-    return new Response("Proxy failed", { status: 500 });
+    console.error("Proxy Error:", error);
+    return new Response("Error forwarding request", { status: 500 });
   }
-}
-
-// Optional but good to prevent 405
-export async function GET() {
-  return new Response("Method Not Allowed", { status: 405 });
 }
