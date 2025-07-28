@@ -321,7 +321,7 @@ const response = await fetch('/api/submit-order', {
             
             <div className="border-2 border-dashed border-gray-700 rounded-xl p-8 text-center hover:border-purple-500 transition-colors">
               <i className="ri-upload-cloud-line text-4xl text-gray-400 mb-4"></i>
-              <p className="text-gray-300 mb-4">Upload bukti pembayaran anda (Gambar or PDF)</p>
+              <p className="text-gray-300 mb-4">Upload bukti pembayaran anda (Dalam bentu PNG)</p>
               
               <input
                 type="file"
