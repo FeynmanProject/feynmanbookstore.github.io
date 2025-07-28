@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Feynman Book Store",
+  title: "Feynman BookStore",
   description: "Pembelian Buku Feynman Project",
   icons: {
     icon: "/favicon-v2.ico", // 👉 ganti ke /favicon-v2.ico untuk cache busting
