@@ -134,10 +134,27 @@ const params = new URLSearchParams({
   })
 });
 
-const response = await fetch(
-  '/api/submit-order?' + params.toString(),
-  { method: 'GET' }
-);
+const response = await fetch('/api/submit-order', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    nama: formData.name,
+    email: formData.email,
+    alamat: formData.address,
+    bukuA: formData.quantities.bukuA || 0,
+    bukuB: formData.quantities.bukuB || 0,
+    bukuC: formData.quantities.bukuC || 0,
+    bukuD: formData.quantities.bukuD || 0,
+    bukuE: formData.quantities.bukuE || 0,
+    bukuF: formData.quantities.bukuF || 0,
+    bukuG: formData.quantities.bukuG || 0,
+    totalHarga: calculateTotal(),
+    file: base64File,
+    fileName: formData.proofFile!.name
+  }),
+});
 
 
 
