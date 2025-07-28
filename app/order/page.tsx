@@ -110,29 +110,29 @@ export default function OrderPage() {
         fileName: formData.proofFile!.name
       };
       
-      const response = await fetch('https://script.google.com/macros/s/AKfycbyQR4SAOM-GGQYjcjJ7mfahvsrBQeHH9VfMEfGAI07gLR6zLpgRez31QM9hwVyvd0M/exec', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-          data: JSON.stringify({
-            nama: formData.name,
-            email: formData.email,
-            alamat: formData.address,
-            bukuA: formData.quantities.bukuA || 0,
-            bukuB: formData.quantities.bukuB || 0,
-            bukuC: formData.quantities.bukuC || 0,
-            bukuD: formData.quantities.bukuD || 0,
-            bukuE: formData.quantities.bukuE || 0,
-            bukuF: formData.quantities.bukuF || 0,
-            bukuG: formData.quantities.bukuG || 0,
-            totalHarga: calculateTotal(),
-            file: base64File,
-            fileName: formData.proofFile!.name
-          })
-        })
-      });
+const params = new URLSearchParams({
+  data: JSON.stringify({
+    nama: formData.name,
+    email: formData.email,
+    alamat: formData.address,
+    bukuA: formData.quantities.bukuA || 0,
+    bukuB: formData.quantities.bukuB || 0,
+    bukuC: formData.quantities.bukuC || 0,
+    bukuD: formData.quantities.bukuD || 0,
+    bukuE: formData.quantities.bukuE || 0,
+    bukuF: formData.quantities.bukuF || 0,
+    bukuG: formData.quantities.bukuG || 0,
+    totalHarga: calculateTotal(),
+    file: base64File,
+    fileName: formData.proofFile!.name
+  })
+});
+
+const response = await fetch(
+  'https://script.google.com/macros/s/AKfycbyQR4SAOM-GGQYjcjJ7mfahvsrBQeHH9VfMEfGAI07gLR6zLpgRez31QM9hwVyvd0M/exec?' + params.toString(),
+  { method: 'GET' }
+);
+
 
       
       if (response.ok) {
