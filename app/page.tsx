@@ -9,7 +9,7 @@ export default function Home() {
       <div className="text-center max-w-4xl px-6">
         <h1 className="text-6xl font-bold mb-6">
           <span className="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
-            Feynman Project
+            Feynman Project Store
           </span>
         </h1>
         <p className="text-xl text-gray-300 mb-12 leading-relaxed">
