@@ -218,7 +218,7 @@ const response = await fetch('/api/submit-order', {
             </div>
             
             <div className="mt-6">
-              <label className="block text-sm font-medium mb-2">Nomor WhatsApp (Gunakan Format "0857....")</label>
+              <label className="block text-sm font-medium mb-2">Nomor WhatsApp (Gunakan Format Seperti ini, Contoh : "0857237628" )</label>
               <textarea
                 value={formData.address}
                 onChange={(e) => setFormData(prev => ({ ...prev, address: e.target.value }))}
