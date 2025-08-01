@@ -79,7 +79,7 @@ export default function Home() {
           </h1>
           
           <p className="text-xl text-white/70 mb-16 max-w-2xl mx-auto">
-            Dapatkan buku diktat edisi cetak kami melalui sistem pemesanan <span className="text-white font-semibold">resmi</span>
+            Dapatkan buku diktat edisi cetak kami melalui sistem pemesanan <span className="text-white font-semibold">Resmi</span>
           </p>
 
           {/* Book Visual Element */}
