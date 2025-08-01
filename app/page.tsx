@@ -119,6 +119,7 @@ export default function Home() {
               href="/order"
               className="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-300 font-semibold text-lg text-white text-center hover:scale-105 shadow-lg hover:shadow-purple-500/25 whitespace-nowrap"
             >
+              <i className="ri-shopping-cart-line mr-2"></i>
               Beli Sekarang
             </Link>
 
@@ -126,6 +127,7 @@ export default function Home() {
               href="https://feynmanproject.vercel.app"
               className="px-8 py-4 bg-white/10 backdrop-blur-sm hover:bg-white/20 rounded-lg transition-all duration-300 font-semibold text-lg text-white text-center hover:scale-105 shadow-lg border border-white/20 whitespace-nowrap"
             >
+              <i className="ri-external-link-line mr-2"></i>
               Kunjungi Situs Utama
             </Link>
           </div>
