@@ -86,7 +86,7 @@ export default function Home() {
           <div className="relative w-96 h-96 mx-auto mb-16">
             <div className="book-container">
               <img 
-                src="https://readdy.ai/api/search-image?query=Open%20magical%20book%20with%20glowing%20pages%2C%20floating%20in%20dark%20space%20with%20purple%20and%20blue%20ambient%20lighting%2C%20mystical%20tome%20with%20light%20emanating%20from%20pages%2C%20ancient%20wisdom%20book%20with%20magical%20energy%2C%20ethereal%20glow%20effects%20around%20open%20book%2C%20fantasy%20literature%20with%20sparkling%20particles%2C%20clean%20dark%20background%20with%20mystical%20atmosphere&width=400&height=400&seq=book1&orientation=squarish"
+                src="https://static.readdy.ai/image/6277bd6514f36d96e4600ed908bd6bca/55e391ace1e4eb02762f82216b8c8de8.png"
                 alt="Book Tech Visualization"
                 className="w-full h-full object-contain opacity-90"
               />
