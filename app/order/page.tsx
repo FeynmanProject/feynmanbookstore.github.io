@@ -176,7 +176,7 @@ const response = await fetch('/api/submit-order', {
           
           <h1 className="text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
-              Pesan Buku Diktat Anda
+              Pesan Buku Diktat Anda (MASIH COMING SOON)
             </span>
           </h1>
           <p className="text-xl text-gray-300">
