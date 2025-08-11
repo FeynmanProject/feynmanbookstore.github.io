@@ -130,6 +130,17 @@ export default function Home() {
               <i className="ri-external-link-line mr-2"></i>
               Kunjungi Situs Utama
             </Link>
+
+            {/* Tombol Hubungi via WhatsApp */}
+            <a
+              href="https://wa.me/6289617420742"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 bg-green-500 hover:bg-green-600 transition-all duration-300 font-semibold text-lg text-white text-center rounded-lg hover:scale-105 shadow-lg hover:shadow-green-500/25 whitespace-nowrap"
+            >
+              <i className="ri-whatsapp-line mr-2"></i>
+              Hubungi Kami
+            </a>         
           </div>
         </div>
       </div>
