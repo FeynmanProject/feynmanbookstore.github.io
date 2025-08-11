@@ -223,7 +223,7 @@ const response = await fetch('/api/submit-order', {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <div className="max-w-4xl mx-auto px-6 py-12">
+      <div className="max-w-6xl mx-auto px-6 py-12">
         {/* Header */}
         <div className="mb-12">
           <Link 
@@ -342,10 +342,10 @@ const response = await fetch('/api/submit-order', {
   </h2>
 
   {/* Grid: katalog (2 kolom) + summary (1 kolom) di desktop */}
-  <div className="grid lg:grid-cols-3 gap-6">
+  <div className="grid gap-6 lg:[grid-template-columns:minmax(0,1fr)_320px]">
     {/* Katalog */}
     <div className="lg:col-span-2">
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-6">
         {books.map((book) => {
           const qty = formData.quantities[book.id] || 0;
           const subtotal = qty * book.price;
