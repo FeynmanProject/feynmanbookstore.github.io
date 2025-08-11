@@ -257,20 +257,20 @@ const response = await fetch('/api/submit-order', {
 
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
-      <label className="block text-sm text-gray-300 mb-2">Nama Lengkap*</label>
+      <label className="block text-sm text-gray-300 mb-2">Nama Lengkap</label>
       <input
         type="text"
         value={formData.name}
         onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
         className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-purple-500 focus:outline-none"
-        placeholder="Contoh: Abdul Wahhab"
+        placeholder="Contoh: Volts Azelio"
         autoComplete="name"
       />
       {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
     </div>
 
     <div>
-      <label className="block text-sm text-gray-300 mb-2">Email*</label>
+      <label className="block text-sm text-gray-300 mb-2">Email</label>
       <input
         type="email"
         value={formData.email}
@@ -284,7 +284,7 @@ const response = await fetch('/api/submit-order', {
   </div>
 
   <div className="mt-6">
-    <label className="block text-sm text-gray-300 mb-2">Nomor WhatsApp*</label>
+    <label className="block text-sm text-gray-300 mb-2">Nomor WhatsApp</label>
     <input
       type="tel"
       value={formData.address}
@@ -467,7 +467,7 @@ const response = await fetch('/api/submit-order', {
             </span>
           </div>
           <p className="mt-2 text-xs text-gray-500">
-            *Harga sudah termasuk subsidi cetak internal.
+            Harga sudah termasuk subsidi cetak internal.
           </p>
         </div>
       </div>
