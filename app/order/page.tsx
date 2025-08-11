@@ -267,7 +267,7 @@ export default function OrderPage() {
 
             <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm text-gray-300 mb-2">Anda mengetahui buku ini dari mana?*</label>
+                <label className="block text-sm text-gray-300 mb-2">Anda mengetahui buku ini dari mana?</label>
                 <select
                   value={formData.source}
                   onChange={(e) => setFormData((p) => ({ ...p, source: e.target.value }))}
