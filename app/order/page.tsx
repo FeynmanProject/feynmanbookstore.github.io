@@ -276,7 +276,7 @@ const response = await fetch('/api/submit-order', {
         value={formData.email}
         onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
         className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-purple-500 focus:outline-none"
-        placeholder="email@ui.ac.id"
+        placeholder="wahhab@gmail.com"
         autoComplete="email"
       />
       {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
