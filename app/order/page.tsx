@@ -1,8 +1,9 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+
 
 const books = [
   { id: 'bukuA', name: 'Kalkulus 1 (Jilid 1)', price: 39500 },
@@ -37,6 +38,11 @@ const formatRupiah = (amount: number): string => {
 
 export default function OrderPage() {
   const [previewSrc, setPreviewSrc] = useState<string | null>(null);
+  const [query, setQuery] = useState("");
+  const filteredBooks = books.filter(b =>
+    b.name.toLowerCase().includes(query.trim().toLowerCase())
+  );
+  
   const [formData, setFormData] = useState({
     name: '', email: '', address: '',
     quantities: {} as Record<string, number>,
@@ -45,6 +51,12 @@ export default function OrderPage() {
     sourceOther: ''      // ← baru
   });
 
+  // cleanup object URL saat komponen unmount / previewSrc berubah
+  useEffect(() => {
+    return () => {
+      if (previewSrc) URL.revokeObjectURL(previewSrc);
+    };
+  }, [previewSrc]);
 
   
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -200,6 +212,11 @@ const response = await fetch('/api/submit-order', {
 
       
       if (response.ok) {
+        if (previewSrc) {
+          URL.revokeObjectURL(previewSrc);
+          setPreviewSrc(null);
+        }
+        
         setSubmitStatus('success');
         setFormData({
           name: '',
@@ -341,12 +358,50 @@ const response = await fetch('/api/submit-order', {
     Pemilihan Buku Diktat
   </h2>
 
+{/* Search */}
+<div className="mb-6 flex items-center gap-3">
+  <div className="relative flex-1">
+    <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"></i>
+    <input
+      type="text"
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+      placeholder="Cari judul buku… (mis. Kalkulus, PDB, LDH)"
+      aria-label="Cari buku"
+      className="w-full pl-10 pr-24 py-3 rounded-lg bg-gray-800 border border-gray-700 focus:border-purple-500 focus:outline-none"
+    />
+    {/* Clear & hitung hasil */}
+    <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-2">
+      {query && (
+        <button
+          type="button"
+          onClick={() => setQuery("")}
+          className="px-2 py-1 text-xs rounded bg-gray-700 hover:bg-gray-600"
+          aria-label="Bersihkan pencarian"
+        >
+          Bersihkan
+        </button>
+      )}
+      <span className="text-xs text-gray-500 whitespace-nowrap">
+        {filteredBooks.length}/{books.length} hasil
+      </span>
+    </div>
+  </div>
+</div>
+
+  
   {/* Grid: katalog (2 kolom) + summary (1 kolom) di desktop */}
   <div className="grid gap-6 lg:[grid-template-columns:minmax(0,1fr)_320px]">
     {/* Katalog */}
     <div className="lg:col-span-2">
       <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-6">
-        {books.map((book) => {
+
+      {filteredBooks.length === 0 ? (
+        <div className="col-span-full text-sm text-gray-400">
+          Tidak ada hasil untuk “{query}”.
+        </div>
+      ) : (
+        filteredBooks.map((book) => {
           const qty = formData.quantities[book.id] || 0;
           const subtotal = qty * book.price;
 
