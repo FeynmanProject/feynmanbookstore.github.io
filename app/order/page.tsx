@@ -29,18 +29,22 @@ const books = [
   { id: 'bukuT',  name: 'Belum Ada', price: 100 }
 ];
 
+const SOURCES = ['Sosial media','Website','Teman','Dosen/asdos','Poster kampus','Lainnya'];
+
 const formatRupiah = (amount: number): string => {
   return 'Rp' + amount.toLocaleString('id-ID');
 };
 
 export default function OrderPage() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    address: '',
+    name: '', email: '', address: '',
     quantities: {} as Record<string, number>,
-    proofFile: null as File | null
+    proofFile: null as File | null,
+    source: '',          // ← baru
+    sourceOther: ''      // ← baru
   });
+
+
   
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -94,6 +98,12 @@ export default function OrderPage() {
     if (!formData.address.trim()) newErrors.address = 'Alamat Diperlukan';
     if (getTotalBooks() === 0) newErrors.books = 'Setidaknya Ada 1 Pembelian';
     if (!formData.proofFile) newErrors.proof = 'Bukti Pembayaran';
+
+    // ✅ validasi sumber
+    if (!formData.source) newErrors.source = 'Pilih sumber';
+    if (formData.source === 'Lainnya' && !formData.sourceOther.trim()) {
+      newErrors.sourceOther = 'Sebutkan sumbernya';
+    }
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -140,6 +150,7 @@ const response = await fetch('/api/submit-order', {
     nama: formData.name,
     email: formData.email,
     alamat: formData.address,
+    sumber: formData.source === 'Lainnya' ? formData.sourceOther : formData.source,
     bukuA: formData.quantities.bukuA || 0,
     bukuB: formData.quantities.bukuB || 0,
     bukuC: formData.quantities.bukuC || 0,
@@ -179,7 +190,9 @@ const response = await fetch('/api/submit-order', {
           email: '',
           address: '',
           quantities: {},
-          proofFile: null
+          proofFile: null,
+          source: '',
+          sourceOther: ''
         });
         setErrors({}); // bersihkan error setelah sukses
       } else {
@@ -260,6 +273,36 @@ const response = await fetch('/api/submit-order', {
             </div>
           </section>
 
+            <div className="mt-6">
+              <label className="block text-sm font-medium mb-2">
+                Anda mengetahui buku diktat ini dari mana?
+              </label>
+              <select
+                value={formData.source}
+                onChange={(e) => setFormData(prev => ({ ...prev, source: e.target.value }))}
+                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-purple-500 focus:outline-none"
+              >
+                <option value="">-- Pilih salah satu --</option>
+                {SOURCES.map(s => <option key={s} value={s}>{s}</option>)}
+              </select>
+              {errors.source && <p className="text-red-400 text-sm mt-1">{errors.source}</p>}
+            </div>
+
+            {formData.source === 'Lainnya' && (
+              <div className="mt-4">
+                <label className="block text-sm font-medium mb-2">Sebutkan sumbernya</label>
+                <input
+                  type="text"
+                  value={formData.sourceOther}
+                  onChange={(e) => setFormData(prev => ({ ...prev, sourceOther: e.target.value }))}
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-purple-500 focus:outline-none"
+                  placeholder="Contoh: dari teman kelas, dsb."
+                />
+                {errors.sourceOther && <p className="text-red-400 text-sm mt-1">{errors.sourceOther}</p>}
+              </div>
+            )}
+
+          
           {/* Book Selection */}
           <section className="bg-gray-900/50 rounded-2xl p-8 backdrop-blur-sm">
             <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
