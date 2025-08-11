@@ -36,6 +36,7 @@ const formatRupiah = (amount: number): string => {
 };
 
 export default function OrderPage() {
+  const [previewSrc, setPreviewSrc] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: '', email: '', address: '',
     quantities: {} as Record<string, number>,
@@ -62,10 +63,25 @@ export default function OrderPage() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      setFormData(prev => ({ ...prev, proofFile: file }));
+    if (!file) return;
+    
+    setFormData(prev => ({ ...prev, proofFile: file }));
+
+    // Tampilkan preview hanya untuk file gambar
+    if (file.type.startsWith('image/')) {
+      const url = URL.createObjectURL(file);
+      // revoke url lama agar tidak leak
+      setPreviewSrc(prev => {
+        if (prev) URL.revokeObjectURL(prev);
+        return url;
+      });
+    } else {
+
+      // jika PDF atau non-image, sembunyikan preview
+      setPreviewSrc(null);
     }
   };
+    
 
   const calculateTotal = () => {
     return books.reduce((total, book) => {
@@ -229,198 +245,317 @@ const response = await fetch('/api/submit-order', {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-12">
-          {/* Personal Information */}
-          <section className="bg-gray-900/50 rounded-2xl p-8 backdrop-blur-sm">
-            <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
-              Informasi Pembeli
-            </h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium mb-2">Nama Lengkap</label>
-                <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
-                  placeholder="Masukkan Nama Lengkap Anda"
-                />
-                {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium mb-2">Email Anda</label>
-                <input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
-                  placeholder="Masukkan alamat email anda"
-                />
-                {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
-              </div>
-            </div>
-            
-            <div className="mt-6">
-              <label className="block text-sm font-medium mb-2">Nomor WhatsApp (Gunakan Format Seperti ini, Contoh : "0857237628" )</label>
-              <textarea
-                value={formData.address}
-                onChange={(e) => setFormData(prev => ({ ...prev, address: e.target.value }))}
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
-                placeholder="Masukkan Nomor WhatsApp Anda"
-              />
-              {errors.address && <p className="text-red-400 text-sm mt-1">{errors.address}</p>}
-            </div>
-          </section>
+      
+{/* ================== Informasi Pembeli (refined) ================== */}
+<section className="bg-gray-900/50 rounded-2xl p-6 md:p-8 backdrop-blur-sm">
+  <div className="flex items-center justify-between mb-6">
+    <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
+      Informasi Pembeli
+    </h2>
+    <span className="text-xs text-gray-500">*Wajib diisi</span>
+  </div>
 
-            <div className="mt-6">
-              <label className="block text-sm font-medium mb-2">
-                Anda mengetahui buku diktat ini dari mana?
-              </label>
-              <select
-                value={formData.source}
-                onChange={(e) => setFormData(prev => ({ ...prev, source: e.target.value }))}
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-purple-500 focus:outline-none"
-              >
-                <option value="">-- Pilih salah satu --</option>
-                {SOURCES.map(s => <option key={s} value={s}>{s}</option>)}
-              </select>
-              {errors.source && <p className="text-red-400 text-sm mt-1">{errors.source}</p>}
-            </div>
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <label className="block text-sm text-gray-300 mb-2">Nama Lengkap*</label>
+      <input
+        type="text"
+        value={formData.name}
+        onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+        className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-purple-500 focus:outline-none"
+        placeholder="Contoh: Abdul Wahhab"
+        autoComplete="name"
+      />
+      {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
+    </div>
 
-            {formData.source === 'Lainnya' && (
-              <div className="mt-4">
-                <label className="block text-sm font-medium mb-2">Sebutkan sumbernya</label>
-                <input
-                  type="text"
-                  value={formData.sourceOther}
-                  onChange={(e) => setFormData(prev => ({ ...prev, sourceOther: e.target.value }))}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-purple-500 focus:outline-none"
-                  placeholder="Contoh: dari teman kelas, dsb."
-                />
-                {errors.sourceOther && <p className="text-red-400 text-sm mt-1">{errors.sourceOther}</p>}
-              </div>
-            )}
+    <div>
+      <label className="block text-sm text-gray-300 mb-2">Email*</label>
+      <input
+        type="email"
+        value={formData.email}
+        onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+        className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-purple-500 focus:outline-none"
+        placeholder="email@ui.ac.id"
+        autoComplete="email"
+      />
+      {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
+    </div>
+  </div>
+
+  <div className="mt-6">
+    <label className="block text-sm text-gray-300 mb-2">Nomor WhatsApp*</label>
+    <input
+      type="tel"
+      value={formData.address}
+      onChange={(e) => setFormData(prev => ({ ...prev, address: e.target.value }))}
+      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-purple-500 focus:outline-none"
+      placeholder="0857XXXXXXXX"
+      inputMode="numeric"
+      autoComplete="tel"
+    />
+    <p className="text-xs text-gray-500 mt-2">
+      Gunakan nomor aktif yang terhubung ke WhatsApp.
+    </p>
+    {errors.address && <p className="text-red-400 text-sm mt-1">{errors.address}</p>}
+  </div>
+
+  {/* Sumber informasi */}
+  <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <label className="block text-sm text-gray-300 mb-2">
+        Anda mengetahui buku ini dari mana?*
+      </label>
+      <select
+        value={formData.source}
+        onChange={(e) => setFormData(prev => ({ ...prev, source: e.target.value }))}
+        className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-purple-500 focus:outline-none"
+      >
+        <option value="">Pilih salah satu</option>
+        {SOURCES.map(s => <option key={s} value={s}>{s}</option>)}
+      </select>
+      {errors.source && <p className="text-red-400 text-sm mt-1">{errors.source}</p>}
+    </div>
+
+    {formData.source === 'Lainnya' && (
+      <div>
+        <label className="block text-sm text-gray-300 mb-2">Sebutkan sumbernya*</label>
+        <input
+          type="text"
+          value={formData.sourceOther}
+          onChange={(e) => setFormData(prev => ({ ...prev, sourceOther: e.target.value }))}
+          className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-purple-500 focus:outline-none"
+          placeholder="Contoh: teman kelas, grup line, dsb."
+        />
+        {errors.sourceOther && <p className="text-red-400 text-sm mt-1">{errors.sourceOther}</p>}
+      </div>
+    )}
+  </div>
+</section>
+
 
           
-          {/* Book Selection */}
-          <section className="bg-gray-900/50 rounded-2xl p-8 backdrop-blur-sm">
-            <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
-              Pemilihan Buku Diktat
-            </h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {books.map((book) => (
-                <div key={book.id} className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-semibold">{book.name}</h3>
-                    <span className="text-purple-400 font-bold">{formatRupiah(book.price)}</span>
-                  </div>
-                  
-                  <div className="flex items-center space-x-3">
+{/* ===== Catalog + Summary (improved UI) ===== */}
+<section className="bg-gray-900/50 rounded-2xl p-6 md:p-8 backdrop-blur-sm">
+  <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
+    Pemilihan Buku Diktat
+  </h2>
+
+  {/* Grid: katalog (2 kolom) + summary (1 kolom) di desktop */}
+  <div className="grid lg:grid-cols-3 gap-6">
+    {/* Katalog */}
+    <div className="lg:col-span-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+        {books.map((book) => {
+          const qty = formData.quantities[book.id] || 0;
+          const subtotal = qty * book.price;
+
+          return (
+            <div
+              key={book.id}
+              className="group rounded-2xl border border-gray-800 bg-gray-800/40 hover:bg-gray-800/60 transition shadow-sm hover:shadow-purple-500/10"
+            >
+              {/* Header kartu */}
+              <div className="px-5 pt-5 pb-3">
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="text-base font-semibold leading-snug">
+                    {book.name}
+                  </h3>
+                  <span className="shrink-0 text-xs font-bold px-2.5 py-1 rounded-full bg-purple-900/30 border border-purple-500/30 text-purple-300">
+                    {formatRupiah(book.price)}
+                  </span>
+                </div>
+              </div>
+
+              {/* Stepper kuantitas */}
+              <div className="px-5 pb-5">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-400">Jumlah</span>
+
+                  <div className="flex items-center gap-2">
                     <button
                       type="button"
-                      onClick={() => handleQuantityChange(book.id, (formData.quantities[book.id] || 0) - 1)}
-                      className="w-8 h-8 flex items-center justify-center bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
+                      onClick={() =>
+                        handleQuantityChange(book.id, Math.max(0, qty - 1))
+                      }
+                      className="w-9 h-9 rounded-full bg-gray-700 hover:bg-gray-600 grid place-items-center transition"
+                      aria-label={`Kurangi ${book.name}`}
                     >
                       <i className="ri-subtract-line"></i>
                     </button>
-                    
+
                     <input
                       type="number"
-                      value={formData.quantities[book.id] || 0}
-                      onChange={(e) => handleQuantityChange(book.id, parseInt(e.target.value) || 0)}
-                      className="w-16 px-2 py-1 bg-gray-700 border border-gray-600 rounded text-center focus:border-purple-500 focus:outline-none"
-                      min="0"
+                      min={0}
+                      value={qty}
+                      onChange={(e) =>
+                        handleQuantityChange(
+                          book.id,
+                          Number.isNaN(parseInt(e.target.value))
+                            ? 0
+                            : parseInt(e.target.value)
+                        )
+                      }
+                      className="w-14 text-center px-2 py-1 rounded-lg bg-gray-800 border border-gray-700 focus:border-purple-500 focus:outline-none"
                     />
-                    
+
                     <button
                       type="button"
-                      onClick={() => handleQuantityChange(book.id, (formData.quantities[book.id] || 0) + 1)}
-                      className="w-8 h-8 flex items-center justify-center bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
+                      onClick={() => handleQuantityChange(book.id, qty + 1)}
+                      className="w-9 h-9 rounded-full bg-purple-600 hover:bg-purple-700 grid place-items-center transition"
+                      aria-label={`Tambah ${book.name}`}
                     >
                       <i className="ri-add-line"></i>
                     </button>
                   </div>
-                  
-                  {formData.quantities[book.id] > 0 && (
-                    <div className="mt-3 text-sm text-gray-300">
-                      Subtotal: {formatRupiah(book.price * formData.quantities[book.id])}
-                    </div>
-                  )}
                 </div>
-              ))}
-            </div>
-            
-            {errors.books && <p className="text-red-400 text-sm mt-4">{errors.books}</p>}
-          </section>
 
-          {/* Order Summary */}
-          {getTotalBooks() > 0 && (
-            <section className="bg-gray-900/50 rounded-2xl p-8 backdrop-blur-sm">
-              <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
-                Order Summary
-              </h2>
-              
-              <div className="space-y-3">
-                {books.map((book) => {
-                  const quantity = formData.quantities[book.id] || 0;
-                  if (quantity === 0) return null;
-                  
-                  return (
-                    <div key={book.id} className="flex justify-between items-center">
-                      <span>{book.name} × {quantity}</span>
-                      <span className="font-semibold">{formatRupiah(book.price * quantity)}</span>
-                    </div>
-                  );
-                })}
-                
-                <div className="border-t border-gray-700 pt-3 mt-4">
-                  <div className="flex justify-between items-center text-xl font-bold">
-                    <span>Total</span>
-                    <span className="text-purple-400">{formatRupiah(calculateTotal())}</span>
+                {/* Subtotal per kartu (muncul jika qty>0) */}
+                {qty > 0 && (
+                  <div className="mt-3 text-sm flex items-center justify-between">
+                    <span className="text-gray-400">Subtotal</span>
+                    <span className="font-semibold text-purple-300">
+                      {formatRupiah(subtotal)}
+                    </span>
                   </div>
-                </div>
+                )}
               </div>
-            </section>
-          )}
-
-          {/* Proof of Payment */}
-          <section className="bg-gray-900/50 rounded-2xl p-8 backdrop-blur-sm">
-            <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
-              Bukti pembayaran harus dikirim melalui transfer ke rekening Bank Syariah Indonesia (BSI) atas nama Abdul Wahhab dengan nomor rekening 7305463242.
-            </h2>
-            
-            <div className="border-2 border-dashed border-gray-700 rounded-xl p-8 text-center hover:border-purple-500 transition-colors">
-              <i className="ri-upload-cloud-line text-4xl text-gray-400 mb-4"></i>
-              <p className="text-gray-300 mb-4">Upload bukti pembayaran anda (Dalam bentuk PNG)</p>
-              
-              <input
-                type="file"
-                accept="image/*,.pdf"
-                onChange={handleFileChange}
-                className="hidden"
-                id="proof-upload"
-              />
-              
-              <label
-                htmlFor="proof-upload"
-                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all cursor-pointer whitespace-nowrap"
-              >
-                <i className="ri-folder-open-line mr-2"></i>
-                Pilih File
-              </label>
-              
-              {formData.proofFile && (
-                <p className="mt-4 text-green-400">
-                  <i className="ri-file-check-line mr-2"></i>
-                  {formData.proofFile.name}
-                </p>
-              )}
             </div>
-            
-            {errors.proof && <p className="text-red-400 text-sm mt-4">{errors.proof}</p>}
-          </section>
+          );
+        })}
+      </div>
+
+      {errors.books && (
+        <p className="text-red-400 text-sm mt-4">{errors.books}</p>
+      )}
+    </div>
+
+    {/* Ringkasan (sticky) */}
+    <aside className="lg:sticky lg:top-6 h-max">
+      <div className="rounded-2xl border border-gray-800 bg-gray-800/40 p-6">
+        <h3 className="text-lg font-semibold mb-4">Ringkasan Pesanan</h3>
+
+        <div className="space-y-2 max-h-[280px] overflow-auto pr-1">
+          {books.map((book) => {
+            const q = formData.quantities[book.id] || 0;
+            if (q === 0) return null;
+            return (
+              <div key={book.id} className="flex justify-between text-sm">
+                <span className="text-gray-300">
+                  {book.name} <span className="text-gray-500">× {q}</span>
+                </span>
+                <span className="font-medium">
+                  {formatRupiah(book.price * q)}
+                </span>
+              </div>
+            );
+          })}
+
+          {/* kosong */}
+          {getTotalBooks() === 0 && (
+            <div className="text-sm text-gray-400">
+              Belum ada item. Pilih buku di kiri.
+            </div>
+          )}
+        </div>
+
+        <div className="border-t border-gray-700 mt-4 pt-4">
+          <div className="flex items-center justify-between text-base font-bold">
+            <span>Total</span>
+            <span className="text-purple-400">
+              {formatRupiah(calculateTotal())}
+            </span>
+          </div>
+          <p className="mt-2 text-xs text-gray-500">
+            *Harga sudah termasuk subsidi cetak internal.
+          </p>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+
+{/* ================== Bukti Pembayaran (refined + preview) ================== */}
+<section className="bg-gray-900/50 rounded-2xl p-6 md:p-8 backdrop-blur-sm">
+  <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
+    Bukti Pembayaran
+  </h2>
+
+  <div className="rounded-xl border border-gray-800 bg-gray-800/40 p-4 md:p-5">
+    <div className="text-sm text-gray-300">
+      Transfer ke <span className="font-semibold">Bank Syariah Indonesia (BSI)</span><br />
+      a.n. <span className="font-semibold">Abdul Wahhab</span> — No. Rek: <span className="font-mono">7305463242</span>
+    </div>
+
+    <div className="mt-4 border-2 border-dashed border-gray-700 rounded-xl p-6 md:p-8 grid md:grid-cols-[1fr,auto] gap-6 items-center">
+      {/* Kiri: preview */}
+      <div className="flex items-center gap-4">
+        <div className="w-24 h-24 rounded-lg bg-gray-900/60 border border-gray-700 overflow-hidden grid place-items-center">
+          {previewSrc ? (
+            <img
+              src={previewSrc}
+              alt="Preview bukti pembayaran"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <i className="ri-image-line text-3xl text-gray-600" />
+          )}
+        </div>
+
+        <div className="text-sm">
+          <p className="text-gray-300">Unggah bukti pembayaran (gambar/PNG/JPG atau PDF).</p>
+          <p className="text-xs text-gray-500 mt-1">Maksimal 150 KB.</p>
+
+          {formData.proofFile && (
+            <p className="mt-2 text-xs text-gray-400">
+              <i className="ri-file-line mr-1"></i>
+              {formData.proofFile.name} — {(formData.proofFile.size/1024).toFixed(1)} KB
+            </p>
+          )}
+        </div>
+      </div>
+
+      {/* Kanan: tombol */}
+      <div className="flex md:flex-col gap-3">
+        <input
+          type="file"
+          accept="image/*,.pdf"
+          onChange={handleFileChange}
+          className="hidden"
+          id="proof-upload"
+        />
+        <label
+          htmlFor="proof-upload"
+          className="inline-flex items-center justify-center px-5 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 transition cursor-pointer whitespace-nowrap"
+        >
+          <i className="ri-folder-open-line mr-2"></i>
+          Pilih File
+        </label>
+
+        {formData.proofFile && (
+          <button
+            type="button"
+            onClick={() => {
+              setFormData(prev => ({ ...prev, proofFile: null }));
+              if (previewSrc) {
+                URL.revokeObjectURL(previewSrc);
+                setPreviewSrc(null);
+              }
+            }}
+            className="inline-flex items-center justify-center px-5 py-3 rounded-lg bg-gray-700 hover:bg-gray-600 transition"
+          >
+            <i className="ri-close-line mr-2"></i>
+            Hapus
+          </button>
+        )}
+      </div>
+    </div>
+
+    {errors.proof && <p className="text-red-400 text-sm mt-3">{errors.proof}</p>}
+  </div>
+</section>
+
 
           {/* Submit Button */}
           <div className="text-center">
@@ -448,7 +583,7 @@ const response = await fetch('/api/submit-order', {
             <div className="text-center p-6 bg-green-900/20 border border-green-500/20 rounded-xl">
               <i className="ri-check-line text-4xl text-green-400 mb-2"></i>
               <p className="text-green-400 font-semibold">Order anda sudah diterima!</p>
-              <p className="text-gray-300 mt-2">Anda akan menerima kabar di WhatsApp dan Email dari kami secepatnya.</p>
+              <p className="text-gray-300 mt-2">Anda akan menerima kabar di WhatsApp dari Kami Secepatnya.</p>
             </div>
           )}
           
