@@ -257,7 +257,7 @@ export default function OrderPage() {
                 value={formData.address}
                 onChange={(e) => setFormData((p) => ({ ...p, address: e.target.value }))}
                 className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-purple-500 focus:outline-none"
-                placeholder="0857XXXXXXXX"
+                placeholder="Ingat gunakan tanda petik, Contoh : '0857XXXXXXXX'"
                 inputMode="numeric"
                 autoComplete="tel"
               />
