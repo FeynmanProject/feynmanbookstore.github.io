@@ -5,28 +5,28 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 const books = [
-  { id: 'bukuA', name: 'Kalkulus 1 (SEMESTER 1)', price: 50000 },
-  { id: 'bukuB', name: 'Kalkulus 3 (SEMESTER 3)', price: 50000 },
-  { id: 'bukuC', name: 'ALE (SEMESTER 1)', price: 50000 },
-  { id: 'bukuD', name: 'PDB (SEMESTER 3)', price: 50000 },
-  { id: 'bukuE', name: 'LDH (SEMESTER 1)', price: 50000 },
-  { id: 'bukuF', name: 'ALPROG (SEMESTER 1)', price: 50000 },
-  { id: 'bukuG', name: 'Matdas (SEMESTER 1)', price: 50000 },
+  { id: 'bukuA', name: 'Kalkulus 1 (Jilid 1)', price: 39500 },
+  { id: 'bukuB', name: 'Kalkulus 3 (SEMESTER 3)', price: 60000 },
+  { id: 'bukuC', name: 'ALE (SEMESTER 1)', price: 32000 },
+  { id: 'bukuD', name: 'PDB (Jilid 1)', price: 45000 },
+  { id: 'bukuE', name: 'LDH (SEMESTER 1)', price: 45000 },
+  { id: 'bukuF', name: 'ALPROG (SEMESTER 1)', price: 25000 },
+  { id: 'bukuG', name: 'Matdas (SEMESTER 1)', price: 35000 },
 
   // Tambahan 13 buku
-  { id: 'bukuH',  name: 'Fisika Dasar', price: 50000 },
-  { id: 'bukuI',  name: 'Statistika', price: 50000 },
-  { id: 'bukuJ',  name: 'Matematika Lanjut', price: 50000 },
-  { id: 'bukuK',  name: 'Aljabar Linear', price: 50000 },
-  { id: 'bukuL',  name: 'Kalkulus 2', price: 50000 },
-  { id: 'bukuM',  name: 'Kalkulus 4', price: 50000 },
-  { id: 'bukuN',  name: 'Persamaan Diferensial', price: 50000 },
-  { id: 'bukuO',  name: 'Numerik', price: 50000 },
-  { id: 'bukuP',  name: 'Probabilitas', price: 50000 },
-  { id: 'bukuQ',  name: 'Pengantar Logika', price: 50000 },
-  { id: 'bukuR',  name: 'Pemrograman Lanjut', price: 50000 },
-  { id: 'bukuS',  name: 'Machine Learning', price: 50000 },
-  { id: 'bukuT',  name: 'Data Science', price: 50000 }
+  { id: 'bukuH',  name: 'Kalkulus 1 (Jilid 2)', price: 39500 },
+  { id: 'bukuI',  name: 'PDB (Jilid 2)', price: 45000 },
+  { id: 'bukuJ',  name: 'Pack Maba Matek', price: 169000 },
+  { id: 'bukuK',  name: 'Bundle PDB (Jilid 1 + 2)', price: 80000 },
+  { id: 'bukuL',  name: 'Bundle Kalk 3 + PDB', price: 130000 },
+  { id: 'bukuM',  name: 'Belum Ada', price: 100 },
+  { id: 'bukuN',  name: 'Belum Ada', price: 100 },
+  { id: 'bukuO',  name: 'Belum Ada', price: 100 },
+  { id: 'bukuP',  name: 'Belum Ada', price: 100 },
+  { id: 'bukuQ',  name: 'Belum Ada', price: 100 },
+  { id: 'bukuR',  name: 'Belum Ada', price: 100 },
+  { id: 'bukuS',  name: 'Belum Ada', price: 100 },
+  { id: 'bukuT',  name: 'Belum Ada', price: 100 }
 ];
 
 const formatRupiah = (amount: number): string => {
