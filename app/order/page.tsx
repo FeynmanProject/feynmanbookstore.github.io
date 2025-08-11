@@ -11,7 +11,22 @@ const books = [
   { id: 'bukuD', name: 'PDB (SEMESTER 3)', price: 50000 },
   { id: 'bukuE', name: 'LDH (SEMESTER 1)', price: 50000 },
   { id: 'bukuF', name: 'ALPROG (SEMESTER 1)', price: 50000 },
-  { id: 'bukuG', name: 'Matdas (SEMESTER 1)', price: 50000 }
+  { id: 'bukuG', name: 'Matdas (SEMESTER 1)', price: 50000 },
+
+  // Tambahan 13 buku
+  { id: 'bukuH',  name: 'Fisika Dasar', price: 50000 },
+  { id: 'bukuI',  name: 'Statistika', price: 50000 },
+  { id: 'bukuJ',  name: 'Matematika Lanjut', price: 50000 },
+  { id: 'bukuK',  name: 'Aljabar Linear', price: 50000 },
+  { id: 'bukuL',  name: 'Kalkulus 2', price: 50000 },
+  { id: 'bukuM',  name: 'Kalkulus 4', price: 50000 },
+  { id: 'bukuN',  name: 'Persamaan Diferensial', price: 50000 },
+  { id: 'bukuO',  name: 'Numerik', price: 50000 },
+  { id: 'bukuP',  name: 'Probabilitas', price: 50000 },
+  { id: 'bukuQ',  name: 'Pengantar Logika', price: 50000 },
+  { id: 'bukuR',  name: 'Pemrograman Lanjut', price: 50000 },
+  { id: 'bukuS',  name: 'Machine Learning', price: 50000 },
+  { id: 'bukuT',  name: 'Data Science', price: 50000 }
 ];
 
 const formatRupiah = (amount: number): string => {
@@ -132,6 +147,22 @@ const response = await fetch('/api/submit-order', {
     bukuE: formData.quantities.bukuE || 0,
     bukuF: formData.quantities.bukuF || 0,
     bukuG: formData.quantities.bukuG || 0,
+
+    // Tambahan 13 buku
+    bukuH: formData.quantities.bukuH || 0,
+    bukuI: formData.quantities.bukuI || 0,
+    bukuJ: formData.quantities.bukuJ || 0,
+    bukuK: formData.quantities.bukuK || 0,
+    bukuL: formData.quantities.bukuL || 0,
+    bukuM: formData.quantities.bukuM || 0,
+    bukuN: formData.quantities.bukuN || 0,
+    bukuO: formData.quantities.bukuO || 0,
+    bukuP: formData.quantities.bukuP || 0,
+    bukuQ: formData.quantities.bukuQ || 0,
+    bukuR: formData.quantities.bukuR || 0,
+    bukuS: formData.quantities.bukuS || 0,
+    bukuT: formData.quantities.bukuT || 0,
+    
     totalHarga: calculateTotal(),
     file: base64File,
     fileName: formData.proofFile!.name
