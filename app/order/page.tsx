@@ -443,7 +443,7 @@ export default function OrderPage() {
                       );
                     })}
                     {getTotalBooks() === 0 && (
-                      <div className="text-sm text-gray-400">Belum ada item. Pilih buku di kiri.</div>
+                      <div className="text-sm text-gray-400">Belum ada item. Pilih buku yang ingin anda beli</div>
                     )}
                   </div>
 
