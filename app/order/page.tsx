@@ -4,18 +4,18 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 const books = [
-  { id: 'bukuA', name: 'Kalkulus 1 (Jilid 1)', price: 39500 },
+  { id: 'bukuA', name: 'Kalkulus 1 (Jilid 1 + 2)', price: 79000 },
   { id: 'bukuB', name: 'Kalkulus 3 (SEMESTER 3)', price: 60000 },
-  { id: 'bukuC', name: 'ALE (SEMESTER 1)', price: 32000 },
+  { id: 'bukuC', name: 'ALE (Jilid 1 + 2)', price: 32000 },
   { id: 'bukuD', name: 'PDB (Jilid 1)', price: 45000 },
   { id: 'bukuE', name: 'LDH (SEMESTER 1)', price: 45000 },
   { id: 'bukuF', name: 'ALPROG (SEMESTER 1)', price: 25000 },
   { id: 'bukuG', name: 'Matdas (SEMESTER 1)', price: 35000 },
-  { id: 'bukuH', name: 'Kalkulus 1 (Jilid 2)', price: 39500 },
-  { id: 'bukuI', name: 'PDB (Jilid 2)', price: 45000 },
-  { id: 'bukuJ', name: 'Pack Maba Matek', price: 169000 },
-  { id: 'bukuK', name: 'Bundle PDB (Jilid 1 + 2)', price: 80000 },
-  { id: 'bukuL', name: 'Bundle Kalk 3 + PDB', price: 130000 },
+  { id: 'bukuH', name: 'PDB (Jilid 2)', price: 45000 },
+  { id: 'bukuI', name: 'Pack Maba Matek', price: 169000 },
+  { id: 'bukuJ', name: 'Bundle PDB (Jilid 1 + 2)', price: 80000 },
+  { id: 'bukuK', name: 'Bundle Kalk 3 + PDB', price: 130000 },
+  { id: 'bukuL', name: 'Belum Ada', price: 100 },
   { id: 'bukuM', name: 'Belum Ada', price: 100 },
   { id: 'bukuN', name: 'Belum Ada', price: 100 },
   { id: 'bukuO', name: 'Belum Ada', price: 100 },
@@ -26,7 +26,7 @@ const books = [
   { id: 'bukuT', name: 'Belum Ada', price: 100 },
 ];
 
-const SOURCES = ['Sosial media', 'Website', 'Teman', 'Dosen/asdos', 'Poster kampus', 'Lainnya'];
+const SOURCES = ['Instagram / Youtube', 'Website', 'Broadcast Grup Line/Wa', 'Lainnya'];
 
 const formatRupiah = (amount: number): string => 'Rp' + amount.toLocaleString('id-ID');
 
