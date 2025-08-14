@@ -204,7 +204,7 @@ export default function OrderPage() {
 
           <h1 className="text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
-              Pesan Buku Diktat Anda (MASIH COMING SOON)
+              Pesan Buku Diktat Anda
             </span>
           </h1>
           <p className="text-xl text-gray-300">
